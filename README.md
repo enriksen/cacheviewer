@@ -50,15 +50,21 @@ All operations can be invoked by GET request:
 
 ## Quickstart
 
-1. Start CacheViewer
+1 - Start CacheViewer
 ```
 java -jar cacheviewer-0.1.0.jar
 ```
 
-2. Open Html Search Form
+2 - Open Html Search Form
 ```
 http://localhost/cacheviewer/search
 ```
+
+3 - If prefer JSON response for WS integration
+```
+http://localhost/cacheviewer/search/users?company=Google
+```
+
 
 
 [cachemanager]: <https://github.com/enriksen/cachemanager>

@@ -33,8 +33,8 @@ All operations can be invoked by GET request:
 
 [Search]
 * **http://localhost/cacheviewer/search** : Show HTML Search Form
-* **http://localhost/cacheviewer/search/users**: Search in cache and return JSON data
-* **http://localhost/cacheviewer/search/users?name=XXX&phone=XXX&company=XXX&iban=XXX**: Search with filters
+* **http://localhost/cacheviewer/users**: Search in cache and return JSON data
+* **http://localhost/cacheviewer/users?name=XXX&phone=XXX&company=XXX&iban=XXX**: Search with filters
 
 
 ## Other Endpoints
@@ -62,7 +62,7 @@ http://localhost/cacheviewer/search
 
 3 - If prefer JSON response for WS integration
 ```
-http://localhost/cacheviewer/search/users?company=Google
+http://localhost/cacheviewer/users?company=Google
 ```
 
 

@@ -8,6 +8,10 @@ It searchs data from Cache Cluster.
 
 Cacheviewer uses SpringBoot to run as service. Don't need application server.
 
+### System requeriments
+- Java 1.7+
+- Apache Maven 3.x+
+
 ## How to run
 
 1. download (git clone https://github.com/enriksen/cacheviewer.git)

@@ -40,7 +40,7 @@ public class SearchController {
 	/**
 	 * Hazelcast client instance
 	 */
-	static HazelcastInstance client=getHazelcastInstance();
+	static HazelcastInstance client;
 
 	/**
 	 * Show Cache Search Form
@@ -67,24 +67,31 @@ public class SearchController {
 		long start = System.nanoTime();
 
 		Collection<UserCache> users = null;
-
+		int cacheSize=0;
+		//Get Cache instance
 		HazelcastInstance client = getHazelcastInstance();
-		IMap<Integer, UserCache> mapUsers = client.getMap(USERS_MAP);
-
-		String query = composeQuery(form);
-
-		if (query != null && !"".equals(query)) {
-			users = mapUsers.values(new SqlPredicate(query));
-		} else {
-			users = mapUsers.values();
+		if(client!=null){
+			
+		
+			IMap<Integer, UserCache> mapUsers = client.getMap(USERS_MAP);
+	
+			String query = composeQuery(form);
+	
+			//Filter elements in cache
+			if (query != null && !"".equals(query)) {
+				users = mapUsers.values(new SqlPredicate(query));
+			} else {
+				users = mapUsers.values();
+			}
+			
+			cacheSize=mapUsers.size();
 		}
-
 		//Store information in session to avoid further querys during pagination
 		session.setAttribute("users", users);
 
 		long end = System.nanoTime();
 		model.addAttribute("time", (end - start) / 1000000 + "ms");
-		model.addAttribute("cachesize", mapUsers.size());
+		model.addAttribute("cachesize", cacheSize);
 		model.addAttribute("searchform", form);
 		
 		LOGGER.info("Show results...");
@@ -92,7 +99,7 @@ public class SearchController {
 	}
 	
 	/**
-	 * Method to get Ajax request form Result's page
+	 * Method to response Ajax request from Result's page
 	 * @param session
 	 * @param request
 	 * @return JSON data
@@ -194,24 +201,27 @@ public class SearchController {
 
 		Collection<UserCache> users = null;
 		Response response=null;
+		int numReg=0;
 		try{
 			HazelcastInstance client = getHazelcastInstance();
-			IMap<Integer, UserCache> mapUsers = client.getMap("users");
-	
-			SearchForm f=new SearchForm(name, phone, company, iban);
-			
-			String query = composeQuery(f);
-	
-			if (query != null && !"".equals(query)) {
-				users = mapUsers.values(new SqlPredicate(query));
-			} else {
-				users = mapUsers.values();
+			if(client!=null){
+				IMap<Integer, UserCache> mapUsers = client.getMap("users");
+		
+				SearchForm f=new SearchForm(name, phone, company, iban);
+				
+				String query = composeQuery(f);
+		
+				//Filter elements in cache
+				if (query != null && !"".equals(query)) {
+					users = mapUsers.values(new SqlPredicate(query));
+				} else {
+					users = mapUsers.values();
+				}
+				numReg=users.size();
 			}
-	
-	
 			long end = System.nanoTime();
 			
-			response=new Response(Response.OK, (end - start) / 1000000 + "ms","Num. registers: "+users.size());
+			response=new Response(Response.OK, (end - start) / 1000000 + "ms","Num. registers: "+numReg);
 			response.setData(new ArrayList<UserCache>(users));
 		} catch (Exception e) {
 			LOGGER.error("Fail get users from cache ...", e);
@@ -227,8 +237,13 @@ public class SearchController {
 	 */
 	public static HazelcastInstance getHazelcastInstance() {
 		if (client == null) {
-			ClientConfig clientConfig = new ClientConfig();
-			client = HazelcastClient.newHazelcastClient(clientConfig);
+			try{
+				ClientConfig clientConfig = new ClientConfig();
+				client = HazelcastClient.newHazelcastClient(clientConfig);	
+			}catch(Exception e){
+				LOGGER.error("Unable to connect to cache ...", e);
+			}
+			
 		}
 
 		return client;

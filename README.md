@@ -28,19 +28,19 @@ Cacheviewer uses SpringBoot to run as service. Don't need application server.
 All operations can be invoked by GET request:
 
 [Search]
-* **http://localhost:8181/cachemanager/search** : Show HTML Search Form
-* **http://localhost:8181/cachemanager/search/users**: Search in cache and return JSON data
-* **http://localhost:8181/cachemanager/search/users?name=XXX&phone=XXX&company=XXX&iban=XXX**: Search with filters
+* **http://localhost/cacheviewer/search** : Show HTML Search Form
+* **http://localhost/cacheviewer/search/users**: Search in cache and return JSON data
+* **http://localhost/cacheviewer/search/users?name=XXX&phone=XXX&company=XXX&iban=XXX**: Search with filters
 
 
 ## Other Endpoints
 
 [Monitoring]
-* **http://localhost:8181/cachemanager/beans** : Displays a complete list of all the Spring beans in the application.
-* **http://localhost:8181/cachemanager/dump** : Performs a thread dump.
-* **http://localhost:8181/cachemanager/health** : Shows application health information
-* **http://localhost:8181/cachemanager/metrics** : Shows 'metrics' information for the current application.
-* **http://localhost:8181/cachemanager/mappings** : Displays a collated list of all @RequestMapping paths.
+* **http://localhost/cacheviewer/beans** : Displays a complete list of all the Spring beans in the application.
+* **http://localhost/cacheviewer/dump** : Performs a thread dump.
+* **http://localhost/cacheviewer/health** : Shows application health information
+* **http://localhost/cacheviewer/metrics** : Shows 'metrics' information for the current application.
+* **http://localhost/cacheviewer/mappings** : Displays a collated list of all @RequestMapping paths.
 
 
 

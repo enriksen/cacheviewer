@@ -17,7 +17,7 @@ Cacheviewer uses SpringBoot to run as service. Don't need application server.
  
 ## How it works
 * First app initilize embebbed Tomcat. 
-* Initialize HazelCast client (cache cluster must be ON!)
+* Initialize HazelCast client (cache cluster must be ON!Can create by yourself or use CacheManager)
 * Finish launching the app on port 80
 * Then the app is ready to search at cache nodes.
 * Thymeleaf + Datatables for View Layer.
@@ -46,7 +46,7 @@ All operations can be invoked by GET request:
 
 ## Quickstart
 
-1. Start CacheManager
+1. Start CacheViewer
 ```
 java -jar cacheviewer-0.1.0.jar
 ```

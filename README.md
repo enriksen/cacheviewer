@@ -10,7 +10,7 @@ Cacheviewer uses SpringBoot to run as service. Don't need application server.
 
 ## How to run
 
-1. download (git clone https://github.com/enriksen/cacheviewer)
+1. download (git clone https://github.com/enriksen/cacheviewer.git)
 2. mvn install
 3. java -jar target\cacheviewer-0.1.0.jar
 4. Ready!
